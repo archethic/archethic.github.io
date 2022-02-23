@@ -12,7 +12,7 @@
          node: nodeVersion,
          java: java.lang.System.getProperty("java.specification.version")
      },
-     arch: java.lang.System.get("os.arch"),
+     arch: java.lang.System.getProperty("os.arch"),
      platform: 'linux', // 안드로이드로 하면 뭔가 호환성 에러생길듯
      release: {
          name: 'node',
