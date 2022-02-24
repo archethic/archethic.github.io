@@ -111,10 +111,8 @@ Domain.prototype._errorHandler = function _errorHandler(er) {
                 // Set the _emittingTopLevelDomainError so that we know that, even
                 // if technically the top-level domain is still active, it would
                 // be ok to abort on an uncaught exception at this point
-                process._emittingTopLevelDomainError = true;
                 caught = this.emit('error', er);
             } finally {
-                process._emittingTopLevelDomainError = false;
             }
         }
     } else {
@@ -139,7 +137,7 @@ Domain.prototype._errorHandler = function _errorHandler(er) {
             }
             if (stack.length) {
                 exports.active = process.domain = stack[stack.length - 1];
-                caught = process._fatalException(er2);
+                caught = new Error(er);
             } else {
                 caught = false;
             }
