@@ -53,9 +53,6 @@ Object.defineProperty(process, 'domain', {
 const stack = [];
 exports._stack = stack;
 
-// let the process know we're using domains
-const _domain_flag = process._setupDomainUse(_domain, stack);
-
 exports.Domain = Domain;
 
 exports.create = exports.createDomain = function() {
@@ -166,7 +163,6 @@ Domain.prototype.enter = function() {
     // to push it onto the stack so that we can pop it later.
     exports.active = process.domain = this;
     stack.push(this);
-    _domain_flag[0] = stack.length;
 };
 
 
@@ -178,7 +174,6 @@ Domain.prototype.exit = function() {
 
     // exit all domains until this one.
     stack.splice(index);
-    _domain_flag[0] = stack.length;
 
     exports.active = stack[stack.length - 1];
     process.domain = exports.active;

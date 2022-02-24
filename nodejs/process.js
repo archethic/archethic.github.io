@@ -57,8 +57,24 @@ Object.defineProperty(exports, 'env', {
 });
 
 Object.defineProperty(exports, 'title', {
-    enumerable: 'title',
+    enumerable: true,
     get: function () {
         return 'SkyLine Project';
     }
 });
+
+let domain = null;
+
+Object.defineProperty(exports, 'domain', {
+    enumerable: true,
+    set: function (dm) {
+        if (dm) {
+            domain = dm;
+        } else {
+            domain = dm;
+        }
+    },
+    get: function () {
+        return domain;
+    }
+})
