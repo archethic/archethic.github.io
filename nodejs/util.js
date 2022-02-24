@@ -581,3 +581,46 @@ exports._extend = function(origin, add) {
 function hasOwnProperty(obj, prop) {
     return Object.prototype.hasOwnProperty.call(obj, prop);
 }
+
+exports.isBoolean = function (arg) {
+    return typeof arg === 'boolean';
+}
+
+exports.isNull = function (arg) {
+    return arg === null;
+}
+
+exports.isNullOrUndefined = function (arg) {
+    return arg === null || arg === undefined;
+}
+
+exports.isNumber = function (arg) {
+    return typeof arg === 'number';
+}
+
+exports.isString = function (arg) {
+    return typeof arg === 'string';
+}
+
+exports.isSymbol = function (arg) {
+    return typeof arg === 'symbol';
+}
+
+exports.isUndefined = function (arg) {
+    return arg === undefined;
+}
+
+exports.isObject = function (arg) {
+    return arg !== null && typeof arg === 'object';
+}
+
+exports.isFunction = function (arg) {
+    return typeof arg === 'function';
+}
+
+exports.isPrimitive = function (arg) {
+    return arg === null ||
+        typeof arg !== 'object' && typeof arg !== 'function';
+}
+
+exports.isBuffer = Buffer.isBuffer;
