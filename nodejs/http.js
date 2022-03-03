@@ -144,6 +144,10 @@
      this.emit('aborted')
  }
  
+ ClientRequest.prototype.destroy = function () {
+     this.req.disconnect();
+ }
+ 
  ClientRequest.prototype.end = function () {
      const method = this.options['method'] || 'GET';
      this.req.setRequestMethod(method)
@@ -162,9 +166,12 @@
      this.statusCode = this.req.getResponseCode();
      this.headers = this.req.getHeaderFields();
  
-     if (this.statusCode !== 0 || this.statusCode !== 200) {
+     const sc = new java.lang.Integer(this.statusCode)
+ 
+     if (this.statusCode !== sc || this.statusCode !== sc) {
          this.cb.call(this, this);
          this.emit('aborted')
+         print("DEBUG statusCode = " + this.statusCode)
          this.emit('error', new Error('HTTP Connection ERROR with status = ' + this.statusCode))
      }
  
