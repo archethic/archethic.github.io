@@ -160,6 +160,7 @@
      }
  
      this.statusCode = this.req.getResponseCode();
+     this.headers = this.req.getHeaderFields();
  
      if (this.statusCode !== 0 || this.statusCode !== 200) {
          this.cb.call(this, this);
