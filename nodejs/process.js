@@ -78,3 +78,5 @@ Object.defineProperty(exports, 'domain', {
         return domain;
     }
 })
+
+exports[Symbol.toStringTag] = "process"
