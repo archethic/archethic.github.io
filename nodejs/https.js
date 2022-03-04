@@ -13,6 +13,6 @@
          throw new TypeError('The "listener" argument must be of type function. Received type ' + typeof callback + ' (' + callback + ')');
      }
  
-     return new http.ClientRequest(options, callback, "http");
+     return new http.ClientRequest(options, callback, "https");
  }
  exports.request = request;

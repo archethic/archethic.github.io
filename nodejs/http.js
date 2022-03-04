@@ -124,7 +124,7 @@
  function ClientRequest(options, callback, scheme = "http") {
      events.EventEmitter.call(this);
      const hostname = options['hostname'];
-     const path = options['path'] || '/'
+     const path = (options['path'] || options['pathname']) || '/'
      const url = new java.net.URL(`${scheme}://${hostname}${path}`)
      this.req = url.openConnection()
      this.cb = callback
@@ -164,7 +164,15 @@
      }
  
      this.statusCode = this.req.getResponseCode();
-     this.headers = this.req.getHeaderFields();
+     const headers = this.req.getHeaderFields()
+     this.headers = {};
+     headers.forEach((k, v) => {
+         if (v instanceof java.util.Collections$UnmodifiableRandomAccessList) {
+             this.headers[k] = new java.util.ArrayList(v);
+         } else {
+             this.headers[k] = v;
+         }
+     });
  
      const sc = new java.lang.Integer(this.statusCode)
  
@@ -182,6 +190,8 @@
          buffer.append(inputLine);
      }
      bufferedReader.close();
+ 
+     print(JSON.stringify(this.options, null, 2))
  
      let responseBuffer = Buffer.from(buffer.toString());
      this.cb.call(this, this)
